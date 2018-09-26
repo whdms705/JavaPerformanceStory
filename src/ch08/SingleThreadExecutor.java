@@ -4,16 +4,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class CachedThreadPool {
+public class SingleThreadExecutor {
     public static void main(String[] args) {
         System.out.println("Main thread starts here...");
 
-        ExecutorService execService = Executors.newCachedThreadPool();
+        ExecutorService execService = Executors.newSingleThreadExecutor();
 
-        execService.execute(new Task2());
-        execService.execute(new Task2());
-        execService.execute(new Task2());
-        execService.execute(new Task2());
+        execService.execute(new Task3());
+        execService.execute(new Task3());
+        execService.execute(new Task3());
+        execService.execute(new Task3());
 
         execService.shutdown();
 
@@ -21,7 +21,7 @@ public class CachedThreadPool {
     }
 }
 
-class Task2 implements Runnable{
+class Task3 implements Runnable{
     private static int count = 0;
     private int id;
     @Override
@@ -36,7 +36,7 @@ class Task2 implements Runnable{
         }
     }
 
-    public Task2(){
+    public Task3(){
         this.id = ++count;
     }
 }

@@ -4,16 +4,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class CachedThreadPool {
+public class FixedThreadPool {
     public static void main(String[] args) {
         System.out.println("Main thread starts here...");
 
-        ExecutorService execService = Executors.newCachedThreadPool();
+        ExecutorService execService = Executors.newFixedThreadPool(2);
 
-        execService.execute(new Task2());
-        execService.execute(new Task2());
-        execService.execute(new Task2());
-        execService.execute(new Task2());
+        execService.execute(new Task());
+        execService.execute(new Task());
 
         execService.shutdown();
 
@@ -21,9 +19,10 @@ public class CachedThreadPool {
     }
 }
 
-class Task2 implements Runnable{
+class Task implements Runnable{
     private static int count = 0;
-    private int id;
+    private  int id;
+
     @Override
     public void run() {
         for(int i=0;i<5;i++){
@@ -36,7 +35,9 @@ class Task2 implements Runnable{
         }
     }
 
-    public Task2(){
+    public Task(){
         this.id = ++count;
     }
+
+
 }
